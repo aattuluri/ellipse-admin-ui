@@ -5,6 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
+import MainPanel from '../Components/MainPanel';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,12 +63,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SearchAppBar() {
+export default function NavBar({history}) {
   const classes = useStyles();
+  const token = localStorage.getItem('token');
+  const handleSignout = () =>{
+    fetch(process.env.REACT_APP_API_URL+'/api/admin/logout', {
+      headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+      },
+      method: 'POST',
+  }).then(response => {
+      if (response.status === 200) {
+          response.json().then(value => {
+            localStorage.removeItem('token');
+            history.replace("/");
+          })
+      }
+      else if (response.status === 401) {
+          localStorage.removeItem('token');
+      }
+  })
+  }
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="sticky">
         <Toolbar>
           <Typography className={classes.title} variant="h6" noWrap>
             Ellipse
@@ -84,8 +107,10 @@ export default function SearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
+          <Button color="secondary" onClick={handleSignout}>Logout</Button>
         </Toolbar>
       </AppBar>
+      <MainPanel></MainPanel>
     </div>
   );
 }
