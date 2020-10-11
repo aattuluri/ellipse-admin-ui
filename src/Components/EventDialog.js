@@ -17,6 +17,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 
 import EventShareDialog from './EventShareDialog';
+import SendEmailDialog from './SendEmailDialog';
 import AboutEventPanel from '../Components/AboutEventPanel';
 import EventsTimeLinePanel from '../Components/EventTimelinePanel';
 // import EvenstAnnouncementsPanel from '../Components/EventsAnnouncementsPanel';
@@ -94,6 +95,7 @@ function EventsDialog(props) {
     const theme = useTheme();
     const token = localStorage.getItem('token');
     const [shareDialogOpen, setShareDialogOpen] = React.useState(false);
+    const [sendEmailOpen,setEmailOpen] = React.useState(false);
 
 
 
@@ -116,6 +118,14 @@ function EventsDialog(props) {
 
     function handleShareClose() {
         setShareDialogOpen(false);
+    }
+
+    function handleSendEmailClick(){
+        setEmailOpen(true);
+    }
+
+    function handleEmailDialogClose(){
+        setEmailOpen(false);
     }
 
     function handleAcceptClick(){
@@ -192,7 +202,6 @@ function EventsDialog(props) {
                             <Tab label="Schedule" {...a11yProps(1)} />
                             {/* <Tab label="Announcements" {...a11yProps(2)} />
                             <Tab label="Chat" {...a11yProps(3)} /> */}
-
                         </Tabs>
                     </Paper>
                 </div>
@@ -209,9 +218,11 @@ function EventsDialog(props) {
                 <EventsTimeLinePanel value={value} index={1} event={props.event}></EventsTimeLinePanel>
             </DialogContent>
             <DialogActions>
-                <Button variant="contained" onClick={handleAcceptClick}>Accept</Button>
-                <Button variant="contained" style={{ marginLeft: "5px" }}>Send Email</Button>
+                {event.status === "pending" && <Button variant="contained" onClick={handleAcceptClick}>Accept</Button>}
+                {event.status !== "pending" && <Button variant="contained" disabled onClick={handleAcceptClick}>Accepted</Button>}
+                <Button variant="contained" onClick={handleSendEmailClick} style={{ marginLeft: "5px" }}>Send Email</Button>
             </DialogActions>
+            <SendEmailDialog event={event} handleClose={handleEmailDialogClose} open={sendEmailOpen}></SendEmailDialog>
         </Dialog>
     )
 }
