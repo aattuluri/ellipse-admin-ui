@@ -53,7 +53,7 @@ export default function SignIn({ history }) {
     const { vertical, horizontal, open, message, type, autoHide } = state;
 
     if(token){
-        return <Redirect to="/home" />;
+        return <Redirect to="/admin/home" />;
     }
 
     //function for closing of alert
@@ -114,7 +114,7 @@ export default function SignIn({ history }) {
                 if (res.status === 200) {
                     res.json().then(result => {
                         localStorage.setItem('token', result.token)
-                        history.push('/home');
+                        history.push('/admin/home');
                         setState({
                             open: true,
                             vertical: 'top',

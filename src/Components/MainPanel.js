@@ -157,7 +157,7 @@ function ExplorePanel(props) {
 
     //if no token found then it is redireted to signin page     
     if (!token) {
-        return <Redirect to="/"></Redirect>
+        return <Redirect to="/admin"></Redirect>
     }
 
     // function to change the tab selcetion in tab nav bar
