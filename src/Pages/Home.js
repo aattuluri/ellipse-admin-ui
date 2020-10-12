@@ -78,7 +78,7 @@ export default function NavBar({history}) {
       if (response.status === 200) {
           response.json().then(value => {
             localStorage.removeItem('token');
-            history.replace("/");
+            history.replace("/admin");
           })
       }
       else if (response.status === 401) {
