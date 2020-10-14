@@ -15,6 +15,7 @@ import EventsDialog from '../Components/EventDialog';
 import UsersDataCard from '../Components/UsersDataCard';
 import ReportCard from '../Components/ReportCard';
 import FeedBack from '../Components/FeedBackCard';
+import AddKeywordsPanel from '../Components/AddKeywordsPanel';
 
 
 //material styling for components
@@ -223,6 +224,7 @@ function ExplorePanel(props) {
                                 <Tab label="Users" />
                                 <Tab label="Reports"></Tab>
                                 <Tab label="FeedBack"></Tab>
+                                <Tab label="Add Keywods"></Tab>
                             </Tabs>
                         </Paper>
                         <div className={classes.content}>
@@ -271,7 +273,9 @@ function ExplorePanel(props) {
                                 })}
 
                             </Grid>}
-                            
+                           {
+                               value === 6 && <AddKeywordsPanel></AddKeywordsPanel>
+                           } 
 
                         </div>
                     </Grid>
