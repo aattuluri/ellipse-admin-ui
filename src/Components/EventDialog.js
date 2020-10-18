@@ -147,6 +147,35 @@ function EventsDialog(props) {
             if (response.status === 200) {
                 response.json().then(value => {
                     console.log(value);
+                    window.location.reload(false);
+                })
+            }
+            else if (response.status === 401) {
+                localStorage.removeItem('token');
+            }
+        })
+    }
+
+    function handleMakeInactive(){
+        var data = new FormData();
+        const payload = {
+            eventId: event._id,
+            status: "pending"
+        }
+        data = JSON.stringify(payload);
+        fetch(process.env.REACT_APP_API_URL+'/api/admin/update_event_status', {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            method: 'POST',
+            body: data
+        }).then(response => {
+            if (response.status === 200) {
+                response.json().then(value => {
+                    console.log(value);
+                    window.location.reload(false);
                 })
             }
             else if (response.status === 401) {
@@ -219,7 +248,7 @@ function EventsDialog(props) {
             </DialogContent>
             <DialogActions>
                 {event.status === "pending" && <Button variant="contained" onClick={handleAcceptClick}>Accept</Button>}
-                {event.status !== "pending" && <Button variant="contained" disabled onClick={handleAcceptClick}>Accepted</Button>}
+                {event.status !== "pending" && <Button variant="contained" onClick={handleMakeInactive}>Make Inactive</Button>}
                 <Button variant="contained" onClick={handleSendEmailClick} style={{ marginLeft: "5px" }}>Send Email</Button>
             </DialogActions>
             <SendEmailDialog event={event} handleClose={handleEmailDialogClose} open={sendEmailOpen}></SendEmailDialog>
