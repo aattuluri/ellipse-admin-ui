@@ -56,7 +56,8 @@ export default function EventReportDialog(props) {
             const payload = {
                 userId: event.user_id,
                 title: title,
-                content: desc
+                content: desc,
+                event_name: event.name,
             };
             data = JSON.stringify(payload);
             fetch(process.env.REACT_APP_API_URL+'/api/admin/event/sendemail', {
