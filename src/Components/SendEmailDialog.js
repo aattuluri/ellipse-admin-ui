@@ -60,6 +60,7 @@ export default function EventReportDialog(props) {
                 event_name: event.name,
             };
             data = JSON.stringify(payload);
+            // console.log(data);
             fetch(process.env.REACT_APP_API_URL+'/api/admin/event/sendemail', {
                 headers: {
                     'Authorization': `Bearer ${token}`,
