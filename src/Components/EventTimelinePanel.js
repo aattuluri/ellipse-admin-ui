@@ -6,12 +6,7 @@ import TimelineItem from '@material-ui/lab/TimelineItem';
 import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
 import TimelineConnector from '@material-ui/lab/TimelineConnector';
 import TimelineContent from '@material-ui/lab/TimelineContent';
-import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent';
 import TimelineDot from '@material-ui/lab/TimelineDot';
-// import FastfoodIcon from '@material-ui/icons/Fastfood';
-// import LaptopMacIcon from '@material-ui/icons/LaptopMac';
-// import HotelIcon from '@material-ui/icons/Hotel';
-// import RepeatIcon from '@material-ui/icons/Repeat';
 import Paper from '@material-ui/core/Paper';
 import TimerIcon from '@material-ui/icons/Timer';
 const useStyles = makeStyles((theme) => ({
@@ -75,36 +70,37 @@ function AboutEventPanel(props) {
         <div className={classes.root}>
           <Timeline align="alternate">
             <TimelineItem>
-              <TimelineOppositeContent>
+              {/* <TimelineOppositeContent>
                 <Typography variant="body2" color="textSecondary">
-                  {regEndDate.toDateString()}{" "+regEndDate.toLocaleTimeString()}
+                  {regEndDate.toDateString()}{" " + regEndDate.toLocaleTimeString()}
                 </Typography>
-              </TimelineOppositeContent>
+              </TimelineOppositeContent> */}
               <TimelineSeparator>
                 <TimelineDot color="primary">
-                <TimerIcon></TimerIcon>
+                  <TimerIcon></TimerIcon>
                 </TimelineDot>
                 <TimelineConnector />
               </TimelineSeparator>
-              
+
               <TimelineContent>
                 <Paper elevation={3} className={classes.paper}>
                   <Typography variant="h6" component="h1">
                     Registration Ends
                   </Typography>
-                  <Typography>Your oppurtunity to participate came to an end</Typography>
+                  <Typography>{regEndDate.toDateString()}{" " + regEndDate.toLocaleTimeString()}</Typography>
                 </Paper>
               </TimelineContent>
             </TimelineItem>
+
             <TimelineItem>
-              <TimelineOppositeContent>
+              {/* <TimelineOppositeContent>
                 <Typography variant="body2" color="textSecondary">
-                {startDate.toDateString()}{" "+startDate.toLocaleTimeString()}
+                  {startDate.toDateString()}{" " + startDate.toLocaleTimeString()}
                 </Typography>
-              </TimelineOppositeContent>
+              </TimelineOppositeContent> */}
               <TimelineSeparator>
-                <TimelineDot color="primary" variant="outlined"> 
-                <TimerIcon></TimerIcon>
+                <TimelineDot color="primary" variant="outlined">
+                  <TimerIcon></TimerIcon>
                 </TimelineDot>
                 <TimelineConnector />
               </TimelineSeparator>
@@ -113,16 +109,71 @@ function AboutEventPanel(props) {
                   <Typography variant="h6" component="h1">
                     Starts
                   </Typography>
-                  <Typography>Party begins</Typography>
+                  <Typography>{startDate.toDateString()}{" " + startDate.toLocaleTimeString()}</Typography>
                 </Paper>
               </TimelineContent>
             </TimelineItem>
+            {
+              event.rounds.map((value, index) => {
+                const sDate = new Date(value.start_date);
+                const eDate = new Date(value.end_date);
+                return (
+                  <React.Fragment>
+                    <TimelineItem>
+                      {/* <TimelineOppositeContent>
+                        <Typography variant="body2" color="textSecondary">
+                          {sDate.toDateString()}{" " + sDate.toLocaleTimeString()}
+                        </Typography>
+                      </TimelineOppositeContent> */}
+                      <TimelineSeparator>
+                        <TimelineDot color="primary" variant="outlined">
+                          <TimerIcon></TimerIcon>
+                        </TimelineDot>
+                        <TimelineConnector />
+                      </TimelineSeparator>
+
+                      <TimelineContent>
+                        <Paper elevation={3} className={classes.paper}>
+                          <Typography variant="h6" component="h1">
+                            {value.title + " Starts"}
+                          </Typography>
+                          <Typography>{sDate.toDateString()}{" " + sDate.toLocaleTimeString()}</Typography>
+                        </Paper>
+                      </TimelineContent>
+                    </TimelineItem>
+                    <TimelineItem>
+                      {/* <TimelineOppositeContent>
+                        <Typography variant="body2" color="textSecondary">
+                          {eDate.toDateString()}{" " + eDate.toLocaleTimeString()}
+                        </Typography>
+                      </TimelineOppositeContent> */}
+                      <TimelineSeparator>
+                        <TimelineDot color="primary" variant="outlined">
+                          <TimerIcon></TimerIcon>
+                        </TimelineDot>
+                        <TimelineConnector />
+                      </TimelineSeparator>
+
+                      <TimelineContent>
+                        <Paper elevation={3} className={classes.paper}>
+                          <Typography variant="h6" component="h1">
+                            {value.title + " Ends"}
+                            
+                          </Typography>
+                          <Typography>{eDate.toDateString()}{" " + eDate.toLocaleTimeString()}</Typography>
+                        </Paper>
+                      </TimelineContent>
+                    </TimelineItem>
+                  </React.Fragment>
+                )
+              })
+            }
             <TimelineItem>
-            <TimelineOppositeContent>
+              {/* <TimelineOppositeContent>
                 <Typography variant="body2" color="textSecondary">
-                {endDate.toDateString()}{" "+endDate.toLocaleTimeString()}
+                  {endDate.toDateString()}{" " + endDate.toLocaleTimeString()}
                 </Typography>
-              </TimelineOppositeContent>
+              </TimelineOppositeContent> */}
               <TimelineSeparator>
                 <TimelineDot color="primary">
                   <TimerIcon></TimerIcon>
@@ -134,25 +185,10 @@ function AboutEventPanel(props) {
                   <Typography variant="h6" component="h1">
                     Ends
                   </Typography>
-                  <Typography>Chill,event came to an end</Typography>
+                  <Typography>{endDate.toDateString()}{" " + endDate.toLocaleTimeString()}</Typography>
                 </Paper>
               </TimelineContent>
             </TimelineItem>
-            {/* <TimelineItem>
-              <TimelineSeparator>
-                <TimelineDot color="secondary">
-                  <RepeatIcon />
-                </TimelineDot>
-              </TimelineSeparator>
-              <TimelineContent>
-                <Paper elevation={3} className={classes.paper}>
-                  <Typography variant="h6" component="h1">
-                    Repeat
-            </Typography>
-                  <Typography>Because this is the life you love!</Typography>
-                </Paper>
-              </TimelineContent>
-            </TimelineItem> */}
           </Timeline>
         </div>
       )}
