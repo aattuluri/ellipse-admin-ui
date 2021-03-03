@@ -38,13 +38,14 @@ export default function CustomizedTables(props) {
   const classes = useStyles();
   const users = props.users;
   const [rows,setRows] = React.useState([]);
-  function createData(name, email, college, designation, gender) {
-    return { name, email,college,designation,gender };
+  function createData(name, email, college, designation, gender,signup_time) {
+    return { name, email,college,designation,gender,signup_time };
   }
 
+  console.log(users)
   React.useEffect(()=>{
       users.forEach(user => {
-          const d = createData(user.name,user.email,user.college_name,user.designation,user.gender);
+          const d = createData(user.name,user.email,user.college_name,user.designation,user.gender,user.signup_time);
           setRows((v)=>[...v,d])
       });
   },[users])
@@ -59,6 +60,7 @@ export default function CustomizedTables(props) {
             <StyledTableCell align="right">College</StyledTableCell>
             <StyledTableCell align="right">Designation</StyledTableCell>
             <StyledTableCell align="right">Gender</StyledTableCell>
+            <StyledTableCell align="right">Signedup On</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -71,6 +73,7 @@ export default function CustomizedTables(props) {
               <StyledTableCell align="right">{row.college}</StyledTableCell>
               <StyledTableCell align="right">{row.designation}</StyledTableCell>
               <StyledTableCell align="right">{row.gender}</StyledTableCell>
+              <StyledTableCell align="right">{row.signup_time}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
